@@ -10,12 +10,16 @@ fi
 apt-get update -y
 
 apt-get install -y -q \
+    python-enum34 \
+    python-cryptography \
+    python-service-identity \
+    python-openssl \
+    python-twisted-core \
     python-twisted \
     python-twisted-web \
     python-dev \
     python-setuptools \
     python-pip \
-    python-enum \
     g++ \
     swig3.0 \
     libjson0 \

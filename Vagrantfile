@@ -38,15 +38,15 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
   config.vm.provider "virtualbox" do |v|
     v.memory = 2048
-    v.cpus = 2
+    v.cpus = 1
+    v.customize ["modifyvm", :id, "--natdnshostresolver1", "on"]
   end
 
-  config.vm.box = "ubuntu/trusty64"
+  config.vm.box = "boxcutter/ubuntu1604"
   #config.vm.box = "bento/opensuse-13.2"
 
   config.vm.network "forwarded_port", guest: 8800, host: 8800
   config.vm.network "forwarded_port", guest: 8900, host: 8900
-
 
   config.vm.provision :shell, path: "bootstrap.sh"
 
