@@ -1,0 +1,23 @@
+#!/usr/bin/env bash
+
+DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+
+DOCKERFILE=$DIR/Dockerfile
+REGISTRY=cintel/sawtooth
+
+VERSION_FILE=${DIR}/version
+VERSION=$(cat "$VERSION_FILE")
+VERSION=`expr $VERSION + 1`
+echo $VERSION > $VERSION_FILE
+
+OS_VERSION=`lsb_release -r | cut -d ":" -f 2 | tr -d '[[:space:]]'`
+
+TAG=$REGISTRY:$OS_VERSION-$VERSION
+TAG_LATEST=$REGISTRY:$OS_VERSION-$VERSION
+
+docker build -f $DOCKERFILE -t $TAG .
+docker tag $TAG $TAG_LATEST
+docker push $TAG
+docker push $TAG_LATEST
+echo $TAG
+#docker push han:5000/sawtooth:1
